@@ -3,9 +3,11 @@
 createStore = require('fluxible/utils/createStore')
 routesConfig = require('../configs/routes')
 
-ApplicationStore = createStore(
+ApplicationStore = createStore
   storeName: 'ApplicationStore'
-  handlers: 'CHANGE_ROUTE_SUCCESS': 'handleNavigate'
+  handlers:
+    'CHANGE_ROUTE_SUCCESS': 'handleNavigate'
+    'UPDATE_PAGE_TITLE': 'updatePageTitle'
 
   initialize: ->
     @currentPageName = null
@@ -24,7 +26,10 @@ ApplicationStore = createStore(
     @currentPage = page
     @currentRoute = route
     @emitChange()
-    return
+
+  updatePageTitle: (title) ->
+    @pageTitle = title.pageTitle
+    @emitChange()
 
   getCurrentPageName: ->
     @currentPageName
@@ -53,7 +58,5 @@ ApplicationStore = createStore(
     @pages = state.pages
     @currentRoute = state.route
     @pageTitle = state.pageTitle
-    return
-)
 
 module.exports = ApplicationStore
