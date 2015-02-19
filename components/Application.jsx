@@ -3,6 +3,7 @@ var React = require('react');
 var Nav = require('./Nav.jsx');
 var Home = require('./Home.jsx');
 var About = require('./About.jsx');
+var Posts = require('./Posts.coffee');
 var ApplicationStore = require('../stores/ApplicationStore');
 var RouterMixin = require('flux-router-component').RouterMixin;
 var FluxibleMixin = require('fluxible').Mixin;
@@ -35,6 +36,9 @@ var Application = React.createClass({
                 break;
             case 'about':
                 output = <About/>;
+                break;
+            case 'posts':
+                output = <Posts/>;
                 break;
         }
         return (

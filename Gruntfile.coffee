@@ -5,8 +5,8 @@ module.exports = (grunt) ->
     clean: [ 'build' ]
 
     coffeelint:
-      app: ['*.coffee', 'actions/*.coffee',
-            'configs/*.coffee', 'stores/*.coffee']
+      app: ['*.coffee', 'actions/*.coffee', 'components/*.coffee',
+            'configs/*.coffee', 'stores/*.coffee', 'services/*.coffee']
 
     concurrent:
       dev: [

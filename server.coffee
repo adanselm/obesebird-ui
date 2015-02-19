@@ -8,21 +8,40 @@
 ###
 require('node-jsx').install extension: '.jsx'
 
-express = require('express')
-serialize = require('serialize-javascript')
+express = require 'express'
+favicon = require 'serve-favicon'
+bodyParser = require 'body-parser'
+cookieParser = require 'cookie-parser'
+csrf = require 'csurf'
+serialize = require 'serialize-javascript'
 navigateAction = require('flux-router-component').navigateAction
 debug = require('debug')('delaio-ui')
-React = require('react')
-app = require('./app')
+React = require 'react'
+app = require './app'
 
 htmlComponent = React.createFactory(require('./components/Html.jsx'))
 
 server = express()
+server.use favicon(__dirname + '/favicon.ico')
 server.set 'state namespace', 'App'
+server.use '/public', express.static(__dirname + '/build')
+server.use cookieParser()
+server.use bodyParser.json()
+server.use csrf({cookie: true})
 
+# Get access to the fetchr plugin instance
+fetchrPlugin = app.getPlugin 'FetchrPlugin'
+# Register our messages REST service
+fetchrPlugin.registerService require('./services/posts')
+
+# Set up the fetchr middleware
+server.use fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware()
 server.use '/public', express.static(__dirname + '/build')
 server.use (req, res, next) ->
-  context = app.createContext()
+  context = app.createContext
+    req: req # The fetchr plugin depends on this
+    xhrContext:
+      _csrf: req.csrfToken() # Make sure all XHR requests have the CSRF token
 
   debug 'Executing navigate action'
   requrl = { url: req.url }
@@ -38,7 +57,6 @@ server.use (req, res, next) ->
 
     debug 'Rendering Application component into html'
     appComponent = app.getAppComponent()
-
     React.withContext context.getComponentContext(), ->
       html = React.renderToStaticMarkup(htmlComponent(
         state: exposed

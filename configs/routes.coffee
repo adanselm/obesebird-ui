@@ -1,6 +1,7 @@
 'use strict'
 
-loadPage = require('../actions/loadPage')
+loadPage = require '../actions/loadPage'
+loadPosts = require '../actions/loadPosts'
 
 module.exports =
   home:
@@ -16,3 +17,10 @@ module.exports =
     page: 'about'
     title: 'About'
     action: loadPage
+
+  posts:
+    path: '/posts'
+    method: 'get'
+    page: 'posts'
+    title: 'Posts'
+    action: loadPosts
