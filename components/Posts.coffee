@@ -4,7 +4,7 @@ React = require 'react'
 PostsStore = require '../stores/PostsStore'
 FluxibleMixin = require('fluxible').Mixin
 
-{h1, ul, li, a, div} = React.DOM
+{h2, ul, li, a, div} = React.DOM
 
 module.exports = React.createClass
   mixins: [FluxibleMixin]
@@ -27,7 +27,7 @@ module.exports = React.createClass
   render: ->
     debug 'rendering Posts'
     div null,
-      h1 null, "Posts"
+      h2 null, "Posts"
       ul null,
         for post in @state.posts
           li

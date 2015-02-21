@@ -1,11 +1,12 @@
 'use strict'
 
 loadPage = require '../actions/loadPage'
-loadPosts = require '../actions/loadPosts'
+showLibrary = require '../actions/showLibrary'
 
 module.exports =
   home:
     path: '/'
+    url: '/'
     method: 'get'
     page: 'home'
     title: 'Home'
@@ -13,14 +14,19 @@ module.exports =
 
   about:
     path: '/about'
+    url: '/about'
     method: 'get'
     page: 'about'
     title: 'About'
     action: loadPage
 
-  posts:
-    path: '/posts'
+  library:
+    path: '/library/:id'
+    url: '/library/1'
     method: 'get'
-    page: 'posts'
-    title: 'Posts'
-    action: loadPosts
+    page: 'library'
+    title: 'Library'
+    action: (context, payload, done) ->
+      payload.categoryID = payload.params.id
+      context.executeAction showLibrary, payload, ->
+        done()

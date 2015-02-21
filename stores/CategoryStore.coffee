@@ -1,12 +1,14 @@
 'use strict'
 
+debug = require('debug')('CategoriesStore')
 createStore = require 'fluxible/utils/createStore'
 
 module.exports = createStore
   storeName: 'CategoryStore'
 
   handlers:
-    'RECEIVE_POSTS': 'receiveMessages'
+    'RECEIVE_CATEGORIES': 'receiveCategories'
+    'OPEN_CATEGORY': 'openCategory'
 
   initialize: (dispatcher) ->
     @currentID = null
@@ -16,7 +18,10 @@ module.exports = createStore
     @categories[id]
 
   getAll: ->
-    @categories
+    cats = []
+    for key in Object.keys(@categories)
+      cats.push @categories[key]
+    cats
 
   getCurrentID: ->
     if @currentID
@@ -28,26 +33,21 @@ module.exports = createStore
       else
         '1'
 
-  getCurrentThreadName: ->
+  getCurrentCategoryName: ->
     @categories[@currentID].name
 
   getCurrent: ->
     @get @getCurrentID()
 
-  receiveMessages: (messages) ->
-    self = this
-    @dispatcher.waitFor 'PostsStore', ->
-      for message in messages
-        categoryID = message.categoryID
-        category = self.categories[categoryID]
-        if category and category.lastTimestamp > message.creationDate
-          return
-        self.categories[categoryID] =
-          id: categoryID
-          name: message.categoryName
-          lastMessage: message
+  openCategory: (payload) ->
+    @currentID = payload.categoryID
+    @emitChange()
 
-      self.emitChange()
+  receiveCategories: (categories) ->
+    debug 'CategoriesStore receiveCategories'
+    for cat in categories
+      @categories[cat.id] = cat
+    @emitChange()
 
   dehydrate: ->
     {

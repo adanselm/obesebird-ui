@@ -29,7 +29,7 @@ module.exports = createStore
     @emitChange()
 
   getAll: ->
-    debug 'getAll ' + @messages.length
+    debug 'getAll'
     @messages
 
   get: (id) ->
