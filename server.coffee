@@ -33,6 +33,9 @@ server.use csrf({cookie: true})
 fetchrPlugin = app.getPlugin 'FetchrPlugin'
 # Register our messages REST service
 fetchrPlugin.registerService require('./services/posts')
+fetchrPlugin.registerService require('./services/categories')
+fetchrPlugin.registerService require('./services/timeslots')
+fetchrPlugin.registerService require('./services/queueItems')
 
 # Set up the fetchr middleware
 server.use fetchrPlugin.getXhrPath(), fetchrPlugin.getMiddleware()
