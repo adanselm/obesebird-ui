@@ -48,6 +48,13 @@ module.exports = createStore
     currentCategoryID = @dispatcher.getStore(CategoryStore).getCurrentID()
     @getAllForCategory currentCategoryID
 
+  createMessage: (details) ->
+    categoryID: details.categoryID
+    text: details.text
+    creationDate: Date.now()
+    lastSubmissionDate: null
+    isQueued: false
+
   dehydrate: ->
     messages: @messages
     sortedByDate: @sortedByDate

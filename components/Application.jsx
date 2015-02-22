@@ -4,6 +4,7 @@ var Nav = require('./Nav.jsx');
 var Home = require('./Home.jsx');
 var About = require('./About.jsx');
 var PostsLibrary = require('./PostsLibrary.coffee');
+var PostComposer = require('./PostComposer.coffee');
 var ApplicationStore = require('../stores/ApplicationStore');
 var RouterMixin = require('flux-router-component').RouterMixin;
 var FluxibleMixin = require('fluxible').Mixin;
@@ -39,6 +40,9 @@ var Application = React.createClass({
                 break;
             case 'library':
                 output = <PostsLibrary/>;
+                break;
+            case 'newpost':
+                output = <PostComposer/>;
                 break;
         }
         return (

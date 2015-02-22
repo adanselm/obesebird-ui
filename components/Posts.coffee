@@ -22,6 +22,7 @@ module.exports = React.createClass
     }
 
   onChange: ->
+    debug 'posts change'
     @setState @getState()
 
   render: ->

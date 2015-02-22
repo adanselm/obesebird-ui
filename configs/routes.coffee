@@ -1,6 +1,7 @@
 'use strict'
 
 loadPage = require '../actions/loadPage'
+loadCategories = require '../actions/loadCategories'
 showLibrary = require '../actions/showLibrary'
 
 module.exports =
@@ -19,6 +20,17 @@ module.exports =
     page: 'about'
     title: 'About'
     action: loadPage
+
+  newpost:
+    path: '/post/new'
+    url: '/post/new'
+    method: 'get'
+    page: 'newpost'
+    title: 'New Post'
+    action: (context, payload, done) ->
+      context.executeAction loadCategories, payload, ->
+        context.executeAction loadPage, payload, ->
+          done()
 
   library:
     path: '/library/:id'
