@@ -2,6 +2,7 @@
 
 loadPage = require '../actions/loadPage'
 loadCategories = require '../actions/loadCategories'
+loadSchedule = require '../actions/loadSchedule'
 showLibrary = require '../actions/showLibrary'
 
 module.exports =
@@ -22,8 +23,8 @@ module.exports =
     action: loadPage
 
   newpost:
-    path: '/post/new'
-    url: '/post/new'
+    path: '/posts/new'
+    url: '/posts/new'
     method: 'get'
     page: 'newpost'
     title: 'New Post'
@@ -42,3 +43,15 @@ module.exports =
       payload.categoryID = payload.params.id
       context.executeAction showLibrary, payload, ->
         done()
+
+  schedule:
+    path: '/schedule'
+    url: '/schedule'
+    method: 'get'
+    page: 'schedule'
+    title: 'Schedule'
+    action: (context, payload, done) ->
+      context.executeAction loadCategories, payload, ->
+        context.executeAction loadSchedule, payload, ->
+          context.executeAction loadPage, payload, ->
+            done()

@@ -3,7 +3,7 @@
 
 React = require('react')
 debug = require('debug')
-debugClient = debug('delaio-ui')
+debugClient = debug('obesebird-ui')
 app = require('./app')
 
 dehydratedState = window.App

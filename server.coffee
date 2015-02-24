@@ -15,7 +15,7 @@ cookieParser = require 'cookie-parser'
 csrf = require 'csurf'
 serialize = require 'serialize-javascript'
 navigateAction = require('flux-router-component').navigateAction
-debug = require('debug')('delaio-ui')
+debug = require('debug')('obesebird-ui')
 React = require 'react'
 app = require './app'
 

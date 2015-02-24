@@ -23,6 +23,9 @@ module.exports = createStore
       cats.push @categories[key]
     cats
 
+  getById: ->
+    @categories
+
   getCurrentID: ->
     if @currentID
       @currentID

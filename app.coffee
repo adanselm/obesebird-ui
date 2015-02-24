@@ -17,5 +17,6 @@ app.plug fetchrPlugin(xhrPath: '/api')
 app.registerStore require('./stores/ApplicationStore')
 app.registerStore require('./stores/CategoryStore')
 app.registerStore require('./stores/PostsStore')
+app.registerStore require('./stores/ScheduleStore')
 
 module.exports = app
