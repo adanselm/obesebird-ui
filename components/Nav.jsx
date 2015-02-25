@@ -14,11 +14,11 @@ var Nav = React.createClass({
         var links = this.props.links;
 
         var linkHTML = Object.keys(links).map(function (name) {
-            var className = '';
+            var className = 'item';
             var link = links[name];
 
             if (selected === name) {
-                className = 'pure-menu-selected';
+                className = 'active item';
             }
 
             return (
@@ -29,7 +29,7 @@ var Nav = React.createClass({
         });
 
         return (
-            <ul className="pure-menu pure-menu-open pure-menu-horizontal">
+            <ul className="ui large secondary pointing menu">
                 {linkHTML}
             </ul>
         );

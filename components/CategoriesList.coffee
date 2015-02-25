@@ -4,7 +4,7 @@ React = require 'react'
 CategoryStore = require '../stores/CategoryStore'
 FluxibleMixin = require('fluxible').Mixin
 
-{h2, ul, li, a, div} = React.DOM
+{ul, li, a, div} = React.DOM
 
 module.exports = React.createClass
   mixins: [FluxibleMixin]
@@ -28,10 +28,18 @@ module.exports = React.createClass
   render: ->
     debug 'rendering categories'
     div null,
-      h2 null, "Categories"
-      ul null,
+      ul
+        className: "ui large vertical menu"
+        div
+          className: "header item"
+          "Categories"
         for category in @state.categories
+          if category.id == @state.currentCategoryID
+            selected = "active"
+          else
+            selected = ""
           li
+            className: "item #{selected}"
             key: category.id
             a
               href: "/library/#{category.id}"

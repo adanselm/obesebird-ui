@@ -12,6 +12,12 @@ module.exports = React.createClass
     debug 'rendering Library'
     div null,
       h1 null, "Library"
-      React.createElement Categories
-      React.createElement Posts
+      div
+        className: "ui grid"
+        div
+          className: "four wide column"
+          React.createElement Categories
+        div
+          className: "twelve wide column"
+          React.createElement Posts
 

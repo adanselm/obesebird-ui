@@ -5,7 +5,7 @@ ScheduleStore = require '../stores/ScheduleStore'
 CategoryStore = require '../stores/CategoryStore'
 FluxibleMixin = require('fluxible').Mixin
 
-{table, tbody, tr, td, th, div} = React.DOM
+{table, thead, tbody, tr, td, th, div} = React.DOM
 
 module.exports = React.createClass
   mixins: [FluxibleMixin]
@@ -47,12 +47,14 @@ module.exports = React.createClass
   render: ->
     debug 'rendering schedule table'
     div null,
-      table null,
-        tbody null,
+      table
+        className: "ui celled definition table"
+        thead null,
           tr null,
             th key: "time-th", ""
             for day in @state.days
               th key: day, day
+        tbody null,
           for time in Object.keys(@state.byTime)
             tr
               key: time
