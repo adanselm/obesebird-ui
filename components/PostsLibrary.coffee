@@ -13,7 +13,7 @@ module.exports = React.createClass
     div null,
       h1 null, "Library"
       div
-        className: "ui grid"
+        className: "ui stackable grid"
         div
           className: "four wide column"
           React.createElement Categories

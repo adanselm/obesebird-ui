@@ -48,7 +48,7 @@ module.exports = React.createClass
     debug 'rendering schedule table'
     div null,
       table
-        className: "ui celled definition table"
+        className: "ui celled unstackable definition table"
         thead null,
           tr null,
             th key: "time-th", ""
