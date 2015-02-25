@@ -4,8 +4,10 @@ debug = require('debug')('loadPostsAction')
 fetchPosts = (context, payload, done) ->
   debug 'fetching posts'
   context.service.read 'posts', {}, {}, (err, messages) ->
-    context.dispatch 'RECEIVE_POSTS', messages
-    context.dispatch 'UPDATE_PAGE_TITLE', pageTitle: payload.config.title
+    if err
+      context.dispatch 'RECEIVE_POSTS_FAILURE', messages
+    else
+      context.dispatch 'RECEIVE_POSTS', messages
     done()
 
 module.exports = (context, payload, done) ->
@@ -14,7 +16,6 @@ module.exports = (context, payload, done) ->
   if Object.keys(postsStore.getAll()).length == 0
     fetchPosts(context, payload, done)
   else
-    context.dispatch 'UPDATE_PAGE_TITLE', pageTitle: payload.config.title
     done()
 
 

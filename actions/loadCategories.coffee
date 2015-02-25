@@ -4,7 +4,10 @@ debug = require('debug')('loadCategoriesAction')
 fetchCategories = (context, payload, done) ->
   debug 'fetching categories'
   context.service.read 'categories', {}, {}, (err, cats) ->
-    context.dispatch 'RECEIVE_CATEGORIES', cats
+    if err
+      context.dispatch 'RECEIVE_CATEGORIES_FAILED', cats
+    else
+      context.dispatch 'RECEIVE_CATEGORIES', cats
     done()
 
 module.exports = (context, payload, done) ->

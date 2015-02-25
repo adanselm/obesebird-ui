@@ -13,7 +13,6 @@ module.exports = (context, payload, done) ->
   context.service.create 'posts', post, {}, (err, posts) ->
     if err
       context.dispatch 'RECEIVE_POSTS_FAILURE', [ post ]
-      done()
-      return
-    context.dispatch 'RECEIVE_POSTS', [ posts[posts.length - 1] ]
+    else
+      context.dispatch 'RECEIVE_POSTS', [ posts[posts.length - 1] ]
     done()

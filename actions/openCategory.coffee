@@ -1,6 +1,4 @@
 debug = require('debug')('showLibraryAction')
-loadPosts = require './loadPosts'
-loadCategories = require './loadCategories'
 CategoryStore = require '../stores/CategoryStore'
 
 module.exports = (context, payload, done) ->
@@ -13,6 +11,4 @@ module.exports = (context, payload, done) ->
 
   context.dispatch 'OPEN_CATEGORY', payload
 
-  context.executeAction loadCategories, payload, ->
-    context.executeAction loadPosts, payload, ->
-      done()
+  done()
